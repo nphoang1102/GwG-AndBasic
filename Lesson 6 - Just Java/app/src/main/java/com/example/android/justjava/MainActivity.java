@@ -8,6 +8,8 @@
 
 package com.example.android.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -16,8 +18,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.text.NumberFormat;
 
 /**
  * This app displays an order form to order coffee.
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         String name = this.getName();
 
         /* Prompting the customer accordingly */
-        String priceMessage;
         if (name.isEmpty()) {
             Toast noName = Toast.makeText(getApplicationContext(), "Please input your name!!!", Toast.LENGTH_SHORT);
             noName.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -55,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         /* Everything looks good, proceed with the order */
-        else priceMessage = this.createOrderSummary(name, addChocolate, addWhippedCream, price);
-        displayMessage(priceMessage);
+        else this.createOrderSummary(name, addChocolate, addWhippedCream, price);
     }
 
     /**
@@ -95,16 +93,6 @@ public class MainActivity extends AppCompatActivity {
     private void display(int number) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
-    }
-
-    /**
-     * This method displays the given text on the screen.
-     *
-     * @param message is the message going to be displayed at the designated TextView
-     */
-    private void displayMessage(String message) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(message);
     }
 
     /**
@@ -153,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
      * @param addWhippedCream is the choice for the Whipped Cream topping
      * @param cost is the total cost of the order
      * */
-    private String createOrderSummary(String name, boolean addChocolate, boolean addWhippedCream, int cost) {
+    private void createOrderSummary(String name, boolean addChocolate, boolean addWhippedCream, int cost) {
         /* To be returned at the end */
         String summary = "Name: " + name + "\n";
 
@@ -169,9 +157,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         /* Let's be nice and make the order summary lengthier on return */
-        return  summary + "Quantity: " + this.orders + "\n" +
+        String body =  summary + "Quantity: " + this.orders + "\n" +
                 "Total: $" + cost + "\n" +
                 "Thank you!";
+        String subject = "Just Java order for " + name;
+        this.sendEmail(subject, body);
+    }
 
+    /**
+     * Compose the summary email to be sent out
+     * */
+    private void sendEmail(String subject, String body) {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+        if (emailIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(emailIntent);
+        }
     }
 }
