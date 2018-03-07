@@ -27,17 +27,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Variables?
+     * Global variables declared here
      * */
     private int orders = 0;
-    private int price = 5;
 
     /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
+        int price = this.calculatePrice(5);
         String priceMessage = "Please make your order.";
-        if (this.orders > 0) priceMessage = "Total: $" + this.orders * this.price + "\nThank you!";
+        if (price > 0) priceMessage = this.createOrderSummary(price);
         displayMessage(priceMessage);
 //        displayPrice(this.orders*this.price);
     }
@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method displays the given quantity value on the screen.
+     *
+     * @param number any number to be displayed at the designated TextView
      */
     private void display(int number) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
@@ -67,18 +69,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method displays the given price on the screen.
+     * This method displays the given text on the screen.
+     *
+     * @param message is the message going to be displayed at the designated TextView
      */
-    private void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+    private void displayMessage(String message) {
+        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+        orderSummaryTextView.setText(message);
     }
 
     /**
-     * This method displays the given text on the screen.
+     * Calculates the price of the order.
+     *
+     * @param price is the price of 1 cup of coffee
      */
-    private void displayMessage(String message) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
+    private int calculatePrice(int price) {
+        return this.orders * price;
+    }
+
+    /**
+     * Return an order summary based on the total cost
+     *
+     * @param cost is the total cost of the order
+     * */
+    private String createOrderSummary(int cost) {
+        return "Name: The Hippie \n" +
+                "Quantity: " + this.orders + "\n" +
+                "Total: $" + cost + "\n" +
+                "Thank you!";
+
     }
 }
