@@ -10,8 +10,12 @@ package com.example.android.justjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 
@@ -29,24 +33,43 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Global variables declared here
      * */
-    private int orders = 0;
+    private int orders = 1;
 
     /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        int price = this.calculatePrice(5);
-        String priceMessage = "Please make your order.";
-        if (price > 0) priceMessage = this.createOrderSummary(price);
+        /* Getting necessary information from the customer */
+        boolean addWhippedCream = this.hasWhippedCream();
+        boolean addChocolate = this.hasChocolate();
+        int price = this.calculatePrice(5, addWhippedCream, addChocolate);
+        String name = this.getName();
+
+        /* Prompting the customer accordingly */
+        String priceMessage;
+        if (name.isEmpty()) {
+            Toast noName = Toast.makeText(getApplicationContext(), "Please input your name!!!", Toast.LENGTH_SHORT);
+            noName.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+            noName.show();
+            return;
+        }
+
+        /* Everything looks good, proceed with the order */
+        else priceMessage = this.createOrderSummary(name, addChocolate, addWhippedCream, price);
         displayMessage(priceMessage);
-//        displayPrice(this.orders*this.price);
     }
 
     /**
      * This method increase the amount of orders by 1
      * */
     public void increment(View view) {
-        this.orders++;
+        if (this.orders < 100) this.orders++;
+        else {
+            Toast tooMuch = Toast.makeText(getApplicationContext(), "You cannot order more than 100 cups of coffee!!!", Toast.LENGTH_SHORT);
+            tooMuch.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+            tooMuch.show();
+            return;
+        }
         display(this.orders);
     }
 
@@ -54,7 +77,13 @@ public class MainActivity extends AppCompatActivity {
      * This method decrease the amount of orders by 1
      * */
     public void decrement(View view) {
-        if (this.orders > 0) this.orders--;
+        if (this.orders > 1) this.orders--;
+        else {
+            Toast negative = Toast.makeText(getApplicationContext(), "You cannot order less than 1 cup of coffee!!!", Toast.LENGTH_SHORT);
+            negative.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+            negative.show();
+            return;
+        }
         display(this.orders);
     }
 
@@ -82,19 +111,65 @@ public class MainActivity extends AppCompatActivity {
      * Calculates the price of the order.
      *
      * @param price is the price of 1 cup of coffee
+     * @param hasWhippedCream is there whipped cream for the orders, $2 per order
+     * @param hasChocolate is there chocolate for the orders, $3 per order
      */
-    private int calculatePrice(int price) {
-        return this.orders * price;
+    private int calculatePrice(int price, boolean hasWhippedCream, boolean hasChocolate) {
+        int totalPrice = this.orders * price;
+        if (hasWhippedCream) totalPrice += 1 * this.orders;
+        if (hasChocolate) totalPrice += 2 * this.orders;
+        return totalPrice;
+    }
+
+    /**
+     * Return whether there is whipped cream in the orders
+     * */
+    private boolean hasWhippedCream() {
+        CheckBox whipped_cream = (CheckBox) findViewById(R.id.whipped_cream);
+        return whipped_cream.isChecked();
+    }
+
+    /**
+     * Return whether there is chocolate in the orders
+     * */
+    private boolean hasChocolate() {
+        CheckBox chocolate = (CheckBox) findViewById(R.id.chocolate);
+        return chocolate.isChecked();
+    }
+
+    /**
+     * Get the customer name from the EditText field
+     * */
+    private String getName() {
+        EditText name = (EditText) findViewById(R.id.customer_name);
+        return name.getText().toString();
     }
 
     /**
      * Return an order summary based on the total cost
      *
+     * @param name is the name of the customer
+     * @param addChocolate is the choice for the Chocolate topping
+     * @param addWhippedCream is the choice for the Whipped Cream topping
      * @param cost is the total cost of the order
      * */
-    private String createOrderSummary(int cost) {
-        return "Name: The Hippie \n" +
-                "Quantity: " + this.orders + "\n" +
+    private String createOrderSummary(String name, boolean addChocolate, boolean addWhippedCream, int cost) {
+        /* To be returned at the end */
+        String summary = "Name: " + name + "\n";
+
+        /* Response accordingly */
+        if (addWhippedCream) {
+            summary += "Add whipped cream\n";
+        }
+        if (addChocolate) {
+            summary += "Add chocolate\n";
+        }
+        if ((!addChocolate) && (!addWhippedCream)) {
+            summary += "No additional toppings\n";
+        }
+
+        /* Let's be nice and make the order summary lengthier on return */
+        return  summary + "Quantity: " + this.orders + "\n" +
                 "Total: $" + cost + "\n" +
                 "Thank you!";
 
