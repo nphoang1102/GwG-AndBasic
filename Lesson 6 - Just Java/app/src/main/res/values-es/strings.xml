@@ -1,0 +1,58 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Sólo Java</string>
+
+    <!-- EditText hint text -->
+    <string name="name">Nombre</string>
+
+    <!-- Topping prompt -->
+    <string name="toppings">Ingredientes</string>
+
+    <!-- Whipped cream topping -->
+    <string name="whipped_cream">Crema batida</string>
+    
+    <!-- Chocolate topping -->
+    <string name="chocolate">Chocolate</string>
+
+    <!-- Order quantity -->
+    <string name="quantity">Cantidad</string>
+    
+    <!-- Initial quantity value -->
+    <string name="initial_quantity_value">1</string>
+
+    <!-- Text displayed on the order button -->
+    <string name="order">Ordenar</string>
+
+    <!-- Name line in the order summary -->
+    <string name="order_summary_name">Nombre: <xliff:g id="name" example="Amy">%s</xliff:g></string>
+
+    <!-- Whipped cream topping in the order summary -->
+    <string name="order_summary_whipped_cream">Agregue la crema batida</string>
+
+    <!-- Chocolate topping in the order summary -->
+    <string name="order_summary_chocolate">Agregue el chocolate</string>
+
+    <!-- No topping in the order summary -->
+    <string name="order_summary_no_topping">Sin ingredientes adicional</string>
+
+    <!-- Quantity of coffee cups in order summary -->
+    <string name="order_summary_quantity">Cantidad: <xliff:g id="quantity" example="2">%d</xliff:g></string>
+
+    <!-- Total price of the order -->
+    <string name="order_summary_price">Total: <xliff:g id="price" example="$10">%s</xliff:g></string>
+
+    <!-- Thank you message because we don't want to be rude -->
+    <string name="thank_you">¡Gracias!</string>
+    
+    <!-- Subject line for the order summary email -->
+    <string name="order_summary_email_subject">Sólo java para <xliff:g id="name" example="Amy">%s</xliff:g></string>
+
+    <!-- Toast warning of no name input -->
+    <string name="toast_no_name">Por favor ingrese su nombre!</string>
+
+    <!-- Toast warning too much coffee -->
+    <string name="toast_too_much">¡No puedes pedir más de 100 tazas de café!</string>
+
+    <!-- Toast warning too few coffee -->
+    <string name="toast_too_few">¡No puedes pedir menos de 1 taza de café!</string>
+
+</resources>

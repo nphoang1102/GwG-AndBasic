@@ -1,3 +1,58 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Just Java</string>
+
+    <!-- EditText hint text -->
+    <string name="name">Name</string>
+
+    <!-- Topping prompt -->
+    <string name="toppings">Toppings</string>
+
+    <!-- Whipped cream topping -->
+    <string name="whipped_cream">Whipped cream</string>
+    
+    <!-- Chocolate topping -->
+    <string name="chocolate">Chocolate</string>
+
+    <!-- Order quantity -->
+    <string name="quantity">Quantity</string>
+    
+    <!-- Initial quantity value -->
+    <string name="initial_quantity_value">1</string>
+
+    <!-- Text displayed on the order button -->
+    <string name="order">Order</string>
+
+    <!-- Name line in the order summary -->
+    <string name="order_summary_name">Name: <xliff:g id="name" example="Amy">%s</xliff:g></string>
+
+    <!-- Whipped cream topping in the order summary -->
+    <string name="order_summary_whipped_cream">Add whipped cream</string>
+
+    <!-- Chocolate topping in the order summary -->
+    <string name="order_summary_chocolate">Add chocolate</string>
+
+    <!-- No topping in the order summary -->
+    <string name="order_summary_no_topping">No additional toppings</string>
+
+    <!-- Quantity of coffee cups in order summary -->
+    <string name="order_summary_quantity">Quantity: <xliff:g id="quantity" example="2">%d</xliff:g></string>
+
+    <!-- Total price of the order -->
+    <string name="order_summary_price">Total: <xliff:g id="price" example="$10">%s</xliff:g></string>
+
+    <!-- Thank you message because we don't want to be rude -->
+    <string name="thank_you">Thank you!</string>
+    
+    <!-- Subject line for the order summary email -->
+    <string name="order_summary_email_subject">Just Java order for <xliff:g id="name" example="Amy">%s</xliff:g></string>
+
+    <!-- Toast warning of no name input -->
+    <string name="toast_no_name">Please input your name!!!</string>
+
+    <!-- Toast warning too much coffee -->
+    <string name="toast_too_much">You cannot order more than 100 cups of coffee!!!</string>
+
+    <!-- Toast warning too few coffee -->
+    <string name="toast_too_few">You cannot order less than 1 cup of coffee!!!</string>
+
 </resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Chỉ Java</string>
+    <string name="name">Họ và tên</string>
+    <string name="toppings">Dùng thêm</string>
+    <string name="whipped_cream">Kem đánh</string>
+    <string name="chocolate">Sôcôla</string>
+    <string name="quantity">Số lượng</string>
+    <string name="initial_quantity_value">1</string>
+    <string name="order">Gọi</string>
+    <string name="order_summary_name">Tên: <xliff:g id="name" example="Amy">%s</xliff:g></string>
+    <string name="order_summary_whipped_cream">Thêm kem đánh</string>
+    <string name="order_summary_chocolate">Thêm Sôcôla</string>
+    <string name="order_summary_no_topping">Không thêm</string>
+    <string name="order_summary_quantity">Số lượng: <xliff:g id="quantity" example="2">%d</xliff:g></string>
+    <string name="order_summary_price">Thành tiền: <xliff:g id="price" example="$10">%s</xliff:g></string>
+    <string name="thank_you">Xin cảm ơn!</string>
+    <string name="order_summary_email_subject">Đơn hàng Chỉ Java cho khách hàng <xliff:g id="name" example="Amy">%s</xliff:g></string>
+    <string name="toast_no_name">Xin nhập họ và tên!!!</string>
+    <string name="toast_too_much">Số lượng quá mức 100 ly!!!</string>
+    <string name="toast_too_few">Số lượng tối thiểu là 1 ly!!!</string>
+</resources>

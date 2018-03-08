@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* Prompting the customer accordingly */
         if (name.isEmpty()) {
-            Toast noName = Toast.makeText(getApplicationContext(), "Please input your name!!!", Toast.LENGTH_SHORT);
+            Toast noName = Toast.makeText(getApplicationContext(), this.getString(R.string.toast_no_name), Toast.LENGTH_SHORT);
             noName.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
             noName.show();
             return;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     public void increment(View view) {
         if (this.orders < 100) this.orders++;
         else {
-            Toast tooMuch = Toast.makeText(getApplicationContext(), "You cannot order more than 100 cups of coffee!!!", Toast.LENGTH_SHORT);
+            Toast tooMuch = Toast.makeText(getApplicationContext(), this.getString(R.string.toast_too_much), Toast.LENGTH_SHORT);
             tooMuch.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
             tooMuch.show();
             return;
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     public void decrement(View view) {
         if (this.orders > 1) this.orders--;
         else {
-            Toast negative = Toast.makeText(getApplicationContext(), "You cannot order less than 1 cup of coffee!!!", Toast.LENGTH_SHORT);
+            Toast negative = Toast.makeText(getApplicationContext(), this.getString(R.string.toast_too_few), Toast.LENGTH_SHORT);
             negative.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
             negative.show();
             return;
@@ -143,24 +143,24 @@ public class MainActivity extends AppCompatActivity {
      * */
     private void createOrderSummary(String name, boolean addChocolate, boolean addWhippedCream, int cost) {
         /* To be returned at the end */
-        String summary = "Name: " + name + "\n";
+        String summary = this.getString(R.string.order_summary_name, name) + "\n";
 
         /* Response accordingly */
         if (addWhippedCream) {
-            summary += "Add whipped cream\n";
+            summary += this.getString(R.string.order_summary_whipped_cream) + "\n";
         }
         if (addChocolate) {
-            summary += "Add chocolate\n";
+            summary += this.getString(R.string.order_summary_chocolate) + "\n";
         }
         if ((!addChocolate) && (!addWhippedCream)) {
-            summary += "No additional toppings\n";
+            summary += this.getString(R.string.order_summary_no_topping) + "\n";
         }
 
         /* Let's be nice and make the order summary lengthier on return */
-        String body =  summary + "Quantity: " + this.orders + "\n" +
-                "Total: $" + cost + "\n" +
-                "Thank you!";
-        String subject = "Just Java order for " + name;
+        String body =  summary + this.getString(R.string.order_summary_quantity, this.orders) + "\n" +
+                this.getString(R.string.order_summary_price, "$" + cost) + "\n" +
+                this.getString(R.string.thank_you);
+        String subject = this.getString(R.string.order_summary_email_subject, name);
         this.sendEmail(subject, body);
     }
 
